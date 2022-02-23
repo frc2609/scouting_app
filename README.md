@@ -175,5 +175,3 @@ Note: The Auto Start (as) element is special in that it will only keep track of 
 
 ## License
 Distributed under the GNU GPL v3.0 License. See `LICENSE` for more information.
-#   s c o u t i n g _ a p p _ h t m l  
- 
