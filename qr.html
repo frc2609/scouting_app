@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, maximum-scale=1.0">
+		<title>Scouting PASS</title>
+		<script src="resources/js/easy.qrcode.min.js"></script>
+		<!-- <script src="resources/js/TBAInterface.js"></script>
+		<script src="resources/js/scoutingPASS.js"></script> -->
+		<script src="2609_config/RR_config.js"></script>
+		<link rel="stylesheet" href="resources/css/scoutingPASS.css">
+	</head>
+
+	<body>
+			<div id="main-panel-holder">
+				<!-- <div id="qr-code" class="main-panel" style="background-color: white;"> -->
+					<h1 id="prematchHeader1" class="page_title"><span class="odd">2609</span><br>Scouting 2022</h1>
+					<h2 id="qrHeader2">Generate QR Code</h2>
+					<p id="qr-info"><span id="display_qr-info" style="border: none; text-align: center;"></span></p>
+					<table id="qr-table"><tr><td width="5%">&nbsp;</td><td width="90%">
+						<div id="qrcode" style="text-align:center">
+							<script>
+                                // Create QRCode Object
+                                var options = {
+                                    text: "t=9998;m=99;l=q;r=b1;s=rjs;d=0;to=0;ds=5;if=0;f=15;cf=0;in=1;alp=5;aop=5;aip=5;apu=5;atr=1;atro=0;lp=20;op=10;ip=10;rc=0;pc=0;ss=[(111,111),(111,111),(111,111),(111,111),(111,111),(111,111),(111,111)];c=1;hbc=0;ac=1;hc=0;cb=0;cs=3;nh=0;p=0;b=0;tr=1;ct=3;dr=3;comm='good shooter; shot from all over the field'",
+                                    correctLevel: QRCode.CorrectLevel.L,
+                                    quietZone: 15,
+                                    quietZoneColor: '#FFFFFF'
+                                };
+								qr = new QRCode(document.getElementById("qrcode"), options)
+							</script>
+			            </div>
+				        </td><td width="5%">&nbsp;</td></tr>
+                    </table>
+					<p></p>
+					<div id="Done">
+						<button type="button" class="clearForm">Done</button>
+					</div>
+					<br>
+				<!-- </div> -->
+			</div>
+		</body>
+</html>

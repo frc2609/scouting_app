@@ -58,7 +58,7 @@ body {
 
 #prematchHeader1,
 #prematchHeader2 {
-  color: white;
+  color: black;
   border-color: white;
   border-width: 4px;
 }
@@ -138,6 +138,7 @@ h2 {
 
 .match-label {
   text-align: center;
+  color: black;
 }
 
 .half-button-l {
