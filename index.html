@@ -18,7 +18,29 @@
 					<h2 id="prematchHeader2">pre-match</h2>
 					<p class="match-label"><input type="button" value="Next" id="nextButton1" onclick="swipePage(1)"></p>
 					<table id="prematch_table" style="font: Roboto">
-					<!-- ###PRE-MATCH-COMPONENTS###-->
+						<tbody>
+							<tr>
+								<td class="title">Scouter&nbsp;</td>
+								<td class="field">
+									<input id="input_s" type="text" name="s" size="5" maxlength="5" required="">
+								</td>
+							</tr>
+							<tr>
+								<td class="title">Match #&nbsp;</td>
+								<td class="field">
+									<input id="input_m" type="number" name="m" onchange="updateMatchStart(event)" min="1" max="100" required="">
+								</td>
+							</tr>
+							<tr>
+								<td class="title">Team #&nbsp;</td>
+								<td class="field">
+									<input id="input_t" type="number" name="t" onchange="updateMatchStart(event)" min="1" max="99999">
+								</td>
+							</tr>
+							<tr>
+								<td id="teamname-label" colspan="2" style="text-align: center;"></td>
+							</tr>
+						</tbody>
 					</table>
 					<p class="match-label"><input type="button" value="Next" id="nextButton2" onclick="swipePage(1)"></p>
 				</div>
