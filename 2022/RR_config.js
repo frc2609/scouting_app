@@ -5,122 +5,83 @@ var config_data = `
   "elements":{
     "prematch": {
       "Scouter Initials": {
-        "code":"s",
+        "code":"scouter",
         "type":"scouter",
         "size":5,
         "maxSize":5,
         "required":"true"
       },
-      "Event":{
-        "code":"e",
-        "type":"event",
-        "defaultValue":"2022flwp",
-        "required":"true",
-        "disabled":"true"
-      },
-      "Match Level":{
-        "code":"l",
-        "type":"level",
-        "choices":{
-          "qm":"Quals<br>",
-          "ef":"Eighth-Final<br>",
-          "qf":"Quarter-Final<br>",
-          "sf":"Semi-Final<br>",
-          "f":"Final"
-        },
-        "defaultValue":"qm",
-        "required":"true"
-      },
+      
       "Match #":{
-        "code":"m",
+        "code":"matchNumber",
         "type":"match",
         "min":1,
         "max":100,
         "required":"true"
       },
-     "Robot": {
-        "code":"r",
-        "type":"robot",
-        "choices":{
-          "r1":"Red-1",
-          "b1":"Blue-1<br>",
-          "r2":"Red-2",
-          "b2":"Blue-2<br>",
-          "r3":"Red-3",
-          "b3":"Blue-3"
-        },
-        "required":"true"
-      },
       "Team #": {
-        "code":"t",
+        "code":"teamNumber",
         "type":"team",
         "min":1,
         "max":99999
+      }
+    },
+    "auton": {
+      "Taxi": {
+        "code":"taxi",
+        "title": "Taxied?",
+        "type":"bool"
+      },
+      "Upper Cargo Scored": {
+        "code":"autoUp",
+        "title": "Uppoer Cargo Scored",
+        "type":"counter"
+      },
+      "Lower Cargo Scored": {
+        "code":"autoLow",
+        "title": "Lower Cargo Scored",
+        "type":"counter"
+      },
+      "Cargo Missed": {
+        "code":"autoMiss",
+        "title": "Cargo Missed",
+        "type":"counter"
+      },
+      "Auto Aquired Cargo": {
+        "code":"autoPickUp",
+        "title": "Picked up more cargo?",
+        "type":"bool"
       },
       "Auto Start Position": {
-        "code":"as",
+        "code":"autoStartPos",
         "title": "Auto Start Position",
         "type":"field_image",
         "filename":"2022/field_image.png"
       }
     },
-    "auton": {
-      "Taxi": {
-        "code":"at",
-        "title": "Taxied?",
-        "type":"bool"
-      },
-      "Upper Cargo Scored": {
-        "code":"au",
-        "title": "Uppoer Cargo Scored",
-        "type":"counter"
-      },
-      "Lower Cargo Scored": {
-        "code":"al",
-        "title": "Lower Cargo Scored",
-        "type":"counter"
-      },
-      "Auto Aquired Cargo": {
-        "code":"ac",
-        "title": "Picked up more cargo?",
-        "type":"bool"
-      }
-    },
     "teleop": {
       "Upper Cargo Scored": {
-        "code":"tu",
+        "code":"teleUp",
         "title": "Uppoer Cargo Scored",
         "type":"counter"
       },
       "Lower Cargo Scored": {
-        "code":"tl",
+        "code":"teleLow",
         "title": "Lower Cargo Scored",
+        "type":"counter"
+      },
+      "Cargo Missed": {
+        "code":"teleMiss",
+        "title": "Cargo Missed",
         "type":"counter"
       },
       "Was Defended": {
-        "code":"wd",
+        "code":"defended",
         "title": "Was Defended",
         "type":"bool"
       },
-      "Wallbot?": {
-        "code":"wbt",
-        "title": "Wallbot?",
-        "type":"bool"
-      },
-      "Cargo Intake From": {
-        "code":"cif",
-        "title": "Cargo Intake From",
-        "type":"radio",
-        "choices":{
-          "t":"Terminal<br>",
-          "g":"Ground<br>",
-          "b":"Both<br>",
-          "x":"Not Attempted"
-        },
-        "defaultValue":"x"
-      },
       "Shooting Spot": {
-        "code":"ss",
+        "code":"shootingSpots",
         "title": "Shooting Spot",
         "type":"field_image",
         "filename":"2022/field_image.png"
@@ -128,7 +89,7 @@ var config_data = `
     },
     "endgame": {
       "Climb": {
-        "code":"c",
+        "code":"climb",
         "title": "Climb",
         "type":"radio",
         "choices":{
@@ -142,7 +103,7 @@ var config_data = `
         "defaultValue":"x"
       },
       "If climb failed,<br>Last successful rung,<br>if any": {
-        "code":"lsr",
+        "code":"lastSuccessfulRung",
         "title": "If climb failed,<br>last successful rung,<br>if any",
         "type":"radio",
         "choices":{
@@ -156,19 +117,14 @@ var config_data = `
         "defaultValue":"x"
       },
       "Started Climb before Endgame": {
-        "code":"be",
+        "code":"earlyClimb",
         "title": "Started climb before EndGame",
         "type":"bool"
-      },
-      "Num of Robots Climbed": {
-        "code":"cn",
-        "title": "# of alliance bots climbed",
-        "type":"counter"
       }
     },
     "postmatch": {
       "Driver Skill": {
-        "code":"ds",
+        "code":"driverSkill",
         "title": "Driver Skill",
         "type":"radio",
         "choices":{
@@ -179,8 +135,53 @@ var config_data = `
         },
         "defaultValue":"x"
       },
+      "Driver Comment": {
+        "code":"driverComment",
+        "title": "Driver Comment",
+        "type":"text",
+        "size":15,
+        "maxSize":50
+      },
+      "Shooting Skill": {
+        "code":"shootingSkill",
+        "title": "Shooting Skill",
+        "type":"radio",
+        "choices":{
+          "n":"Not Effective<br>",
+          "a":"Average<br>",
+          "v":"Very Effective<br>",
+          "x":"Not Observed"
+        },
+        "defaultValue":"x"
+      },
+      "Shooter Comment": {
+        "code":"shooterComment",
+        "title": "Shooter Comment",
+        "type":"text",
+        "size":15,
+        "maxSize":50
+      },
+      "Climbing Skill": {
+        "code":"climbingSkill",
+        "title": "Climbing Skill",
+        "type":"radio",
+        "choices":{
+          "n":"Not Effective<br>",
+          "a":"Average<br>",
+          "v":"Very Effective<br>",
+          "x":"Not Observed"
+        },
+        "defaultValue":"x"
+      },
+      "Climbing Comment": {
+        "code":"climbingComment",
+        "title": "Climbing Comment",
+        "type":"text",
+        "size":15,
+        "maxSize":50
+      },
       "Defense Rating": {
-        "code":"dr",
+        "code":"defenseRating",
         "title": "Defense Rating",
         "type":"radio",
         "choices":{
@@ -191,44 +192,30 @@ var config_data = `
         },
         "defaultValue":"x"
       },
-      "Shot enemy balls away?": {
-        "code":"ba",
-        "title": "Shot enemy balls away?",
-        "type":"bool"
-      },
-      "Died/Tipped": {
-        "code":"d",
-        "title": "Died/Tipped",
-        "type":"bool"
-      },
-      "Card Foul": {
-        "code":"cf",
-        "title": "Yellow/Red Card",
-        "type":"bool"
-      },
-      "Make good alliance partner?": {
-        "code":"all",
-        "title": "Make good alliance partner?",
-        "type":"bool"
-      },
-      "Comments": {
-        "code":"co",
-        "title": "Comments",
+      "Defense Comment": {
+        "code":"defenseComment",
+        "title": "Defense Comment",
         "type":"text",
         "size":15,
         "maxSize":50
       },
-      "Confidence Rating": {
-        "code":"cnf",
-        "title": "Confidence Rating",
-        "type":"radio",
-        "choices":{
-          "v":"Very Confident<br>",
-          "a":"Average<br>",
-          "n":"Not Confident"
+      "Died/Tipped": {
+        "code":"died",
+        "title": "Died/Tipped",
+        "type":"bool"
       },
-       "defaultValue":"a"
-    }
+      "Make good alliance partner?": {
+        "code":"goodPartner",
+        "title": "Make good alliance partner?",
+        "type":"bool"
+      },
+      "Comments": {
+        "code":"comments",
+        "title": "Comments",
+        "type":"text",
+        "size":15,
+        "maxSize":50
+      }
     }
   }
 }`;
