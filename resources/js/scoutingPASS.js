@@ -2,7 +2,6 @@
 //
 // The guts of the ScountingPASS application
 // Written by Team 2451 - PWNAGE
-
 document.addEventListener("touchstart", startTouch, false);
 document.addEventListener("touchend", moveTouch, false);
 
@@ -22,6 +21,10 @@ var options = {
 // Must be filled in: e=event, m=match#, l=level(q,qf,sf,f), t=team#, r=robot(r1,r2,b1..), s=scouter
 //var requiredFields = ["e", "m", "l", "t", "r", "s", "as"];
 var requiredFields = ["matchNumber", "scouter", "teamNumber"];
+
+function getTeamNumber() {
+  var teamNumber = getElementById("input_teamNumber").value
+}
 
 function addCounter(table, idx, name, data) {
   var row = table.insertRow(idx);
@@ -401,6 +404,7 @@ function configure() {
     idx = addElement(at, idx, key, value);
   });
 
+
   // Configure teleop screen
   var tc = mydata.elements.teleop;
   var tt = document.getElementById("teleop_table");
@@ -430,6 +434,8 @@ function configure() {
 
   return 0
 }
+
+
 
 function getRobot() {
   if (document.getElementById("input_r_r1").checked) {
@@ -553,7 +559,7 @@ function getData() {
     if (radio > -1) {
       if (e.checked) {
         if (start == false) {
-          str = str + ';'
+          str = str + '&'
         } else {
           start = false
         }
@@ -564,18 +570,23 @@ function getData() {
       }
     } else {
       if (start == false) {
-        str = str + ';'
+        str = str + '&'
       } else {
         start = false
       }
       if (e.value == "on") {
         if (e.checked) {
-          str = str + code + '=Y'
+          str = str + code + '=1'
         } else {
-          str = str + code + '=N'
+          str = str + code + '=0'
         }
       } else {
-        str = str + code + '=' + e.value.split(';').join('-')
+        var value = e.value.split(';').join('-')
+        if (code == "comments") {
+          value = value.replace(/ /g, "%20")
+        }
+
+        str = str + code + '=' + value
       }
     }
   }
@@ -602,10 +613,13 @@ function qr_regenerate() {
 
   // Get data
   data = getData()
+  data = "https://scouting-2609.herokuapp.com/scout?" + data
+  // data = "http://localhost:5000/scout?" + data
+
+  console.log(data)
 
   // Regenerate QR Code
   qr.makeCode(data)
-
   // updateQRHeader()
   return true
 }
@@ -614,22 +628,51 @@ function qr_clear() {
   qr.clear()
 }
 
+
+function download(data, filename, type) {
+  var file = new Blob([data], { type: type });
+  if (window.navigator.msSaveOrOpenBlob) // IE10+
+    window.navigator.msSaveOrOpenBlob(file, filename);
+  else { // Others
+    var a = document.createElement("a"),
+      url = URL.createObjectURL(file);
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 0);
+  }
+}
+
 function clearForm() {
+  var data = "https://scouting-2609.herokuapp.com/scout?" + getData();
+  // var data = "http://localhost:5000/scout?" + getData()
+
+  var matchRegex = /(?<=matchNumber=).*(?=&teamNumber)/g;
+  var teamRegex = /(?<=teamNumber=).*(?=&taxi)/g;
+
+  const matchNumber = data.match(matchRegex);
+  const teamNumber = data.match(teamRegex);
+
+  download(data, "qr_log_" + matchNumber + "_" + teamNumber, "text/plain;charset=UTF-8");
+
   var match = 0;
   var e = 0;
 
   swipePage(-5)
 
   // Increment match
-  match = parseInt(document.getElementById("input_m").value)
+  match = parseInt(document.getElementById("input_matchNumber").value)
   if (match == NaN) {
-    document.getElementById("input_m").value = ""
+    document.getElementById("input_matchNumber").value = ""
   } else {
-    document.getElementById("input_m").value = match + 1
+    document.getElementById("input_matchNumber").value = match + 1
   }
 
   // Robot
-  resetRobot()
 
   // Clear XY coordinates
   inputs = document.querySelectorAll("[id*='XY_']");
@@ -643,11 +686,8 @@ function clearForm() {
     code = e.id.substring(6)
 
     // Don't clear key fields
-    if (code == "m") continue
-    if (code.substring(0, 2) == "r_") continue
-    if (code.substring(0, 2) == "l_") continue
-    if (code == "e") continue
-    if (code == "s") continue
+    if (code == "matchNumber") continue
+    if (code == "scouter") continue
 
 
     radio = code.indexOf("_")
@@ -660,7 +700,6 @@ function clearForm() {
       var defaultValue = document.getElementById("default_" + baseCode).value
       if (defaultValue != "") {
         if (defaultValue == e.value) {
-          console.log("they match!")
           e.checked = true
           document.getElementById("display_" + baseCode).value = defaultValue
         }
@@ -763,7 +802,7 @@ function onFieldClick(event) {
   changingInput = document.getElementById("input" + getIdBase(target.id));
 
   // TODO: 2nd half of this if statement is a hack for auto start - don't allow more than one starting position
-  if ((JSON.stringify(changingXY.value).length > 2) && changingXY.id !== "XY_as") {
+  if ((JSON.stringify(changingXY.value).length > 2) && changingXY.id !== "XY_autoStartPos") {
     var tempValue = Array.from(JSON.parse(changingXY.value));
     tempValue.push(coords);
     changingXY.value = JSON.stringify(tempValue);

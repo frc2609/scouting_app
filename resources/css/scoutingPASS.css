@@ -6,6 +6,13 @@
     src: url("../fonts/alexisv3.ttf") format('truetype');
 }
 
+.teamNumberElement {
+    color: black;
+}
+/* .white_teamNumberElement{
+    color: white;
+} */
+
 html, body{
     height: 100%;
     width: 100%;
@@ -156,7 +163,8 @@ h2{
     display: inline-block;
 }
 
-#nextButton3, #nextButton4, #nextButton5, #nextButton6, #nextButton7, #nextButton8, .undoButton{
+#nextButton3, #nextButton4, #nextButton5, #nextButton6, #nextButton7, #nextButton8, .undoButton, #prevButton1, #prevButton2, #prevButton3, #prevButton4, #prevButton5, #prevButton6{
+
     font-family: Alexis;
     background-color: black; 
     padding: 10px;
@@ -169,13 +177,13 @@ h2{
     padding: 10px;
 }
 
-#prevButton1, #prevButton2, #prevButton3, #prevButton4, #prevButton5, #prevButton6{
+/* #prevButton1, #prevButton2, #prevButton3, #prevButton4, #prevButton5, #prevButton6{
     font-family: Alexis;
     background-color: black; 
     padding: 10px;
     color: white;
     
-}
+} */
 
 #prematch_table{
     font: Alexis;
@@ -210,12 +218,12 @@ input {
 }
 
 .title {
-    width: "50%";
+    width: 50%;
     text-align: right;
 }
 
 .field {
-    width: "50%";
+    width: 50%;
     text-align: left;
 }
 

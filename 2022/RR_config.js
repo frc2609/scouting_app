@@ -32,91 +32,71 @@ var config_data = `
         "title": "Taxied?",
         "type":"bool"
       },
-      "Upper Cargo Scored": {
-        "code":"autoUp",
-        "title": "Uppoer Cargo Scored",
-        "type":"counter"
-      },
-      "Lower Cargo Scored": {
+      "Low Goal": {
         "code":"autoLow",
-        "title": "Lower Cargo Scored",
+        "title": "Low Goal",
         "type":"counter"
       },
-      "Cargo Missed": {
+      "Missed": {
         "code":"autoMiss",
-        "title": "Cargo Missed",
+        "title": "Missed",
         "type":"counter"
       },
-      "Auto Aquired Cargo": {
-        "code":"autoPickUp",
-        "title": "Picked up more cargo?",
-        "type":"bool"
-      },
-      "Auto Start Position": {
-        "code":"autoStartPos",
-        "title": "Auto Start Position",
+      "High Goal": {
+        "code":"autoHighGoal",
+        "title": "High Goal",
         "type":"field_image",
         "filename":"2022/field_image.png"
       }
     },
     "teleop": {
-      "Upper Cargo Scored": {
-        "code":"teleUp",
-        "title": "Uppoer Cargo Scored",
-        "type":"counter"
-      },
-      "Lower Cargo Scored": {
+      "Low Goal": {
         "code":"teleLow",
-        "title": "Lower Cargo Scored",
+        "title": "Low Goal",
         "type":"counter"
       },
-      "Cargo Missed": {
+      "Missed": {
         "code":"teleMiss",
-        "title": "Cargo Missed",
+        "title": "Missed",
         "type":"counter"
       },
-      "Was Defended": {
-        "code":"defended",
-        "title": "Was Defended",
-        "type":"bool"
-      },
-      "Shooting Spot": {
-        "code":"shootingSpots",
-        "title": "Shooting Spot",
+      "High Goal": {
+        "code":"teleHighGoal",
+        "title": "High Goal",
         "type":"field_image",
         "filename":"2022/field_image.png"
       }
     },
     "endgame": {
-      "Climb": {
-        "code":"climb",
-        "title": "Climb",
+      "Rung": {
+        "code":"rung",
+        "title": "Rung",
         "type":"radio",
         "choices":{
-          "1":"Low<br>",
-          "2":"Mid<br>",
-          "3":"High<br>",
-          "4":"Traversal<br>",
-          "a":"Attempted but failed<br>",
-          "x":"Not attempted"
+          "low":"Low<br>",
+          "mid":"Mid<br>",
+          "high":"High<br>",
+          "traversal":"Traversal<br>",
+          "fall":"Attempted but fell<br>",
+          "none":"Not attempted"
         },
-        "defaultValue":"x"
+        "defaultValue":"none"
       },
-      "If climb failed,<br>Last successful rung,<br>if any": {
+      "If fell,<br>Last successful rung": {
         "code":"lastSuccessfulRung",
-        "title": "If climb failed,<br>last successful rung,<br>if any",
+        "title": "If fell,<br>Last successful rung",
         "type":"radio",
         "choices":{
-          "1":"Low<br>",
-          "2":"Mid<br>",
-          "3":"High<br>",
-          "4":"Traversal<br>",
-          "n":"No successful rung<br>",
-          "x":"n/a"
+          "low":"Low<br>",
+          "mid":"Mid<br>",
+          "high":"High<br>",
+          "traversal":"Traversal<br>",
+          "fall":"No successful rung<br>",
+          "none":"n/a"
         },
-        "defaultValue":"x"
+        "defaultValue":"none"
       },
-      "Started Climb before Endgame": {
+      "Early Climb": {
         "code":"earlyClimb",
         "title": "Started climb before EndGame",
         "type":"bool"
@@ -128,80 +108,62 @@ var config_data = `
         "title": "Driver Skill",
         "type":"radio",
         "choices":{
-          "n":"Not Effective<br>",
-          "a":"Average<br>",
-          "v":"Very Effective<br>",
-          "x":"Not Observed"
+          "0":"Not Observed<br>",
+          "1":"Not Effective<br>",
+          "2":"Average<br>",
+          "3":"Very Effective"
         },
-        "defaultValue":"x"
-      },
-      "Driver Comment": {
-        "code":"driverComment",
-        "title": "Driver Comment",
-        "type":"text",
-        "size":15,
-        "maxSize":50
+        "defaultValue":"0"
       },
       "Shooting Skill": {
         "code":"shootingSkill",
         "title": "Shooting Skill",
         "type":"radio",
         "choices":{
-          "n":"Not Effective<br>",
-          "a":"Average<br>",
-          "v":"Very Effective<br>",
-          "x":"Not Observed"
+          "0":"Not Observed<br>",
+          "1":"Not Effective<br>",
+          "2":"Average<br>",
+          "3":"Very Effective"
         },
-        "defaultValue":"x"
-      },
-      "Shooter Comment": {
-        "code":"shooterComment",
-        "title": "Shooter Comment",
-        "type":"text",
-        "size":15,
-        "maxSize":50
+        "defaultValue":"0"
       },
       "Climbing Skill": {
         "code":"climbingSkill",
         "title": "Climbing Skill",
         "type":"radio",
         "choices":{
-          "n":"Not Effective<br>",
-          "a":"Average<br>",
-          "v":"Very Effective<br>",
-          "x":"Not Observed"
+          "0":"Not Observed<br>",
+          "1":"Not Effective<br>",
+          "2":"Average<br>",
+          "3":"Very Effective"
         },
-        "defaultValue":"x"
-      },
-      "Climbing Comment": {
-        "code":"climbingComment",
-        "title": "Climbing Comment",
-        "type":"text",
-        "size":15,
-        "maxSize":50
+        "defaultValue":"0"
       },
       "Defense Rating": {
         "code":"defenseRating",
         "title": "Defense Rating",
         "type":"radio",
         "choices":{
-          "n":"Not Effective<br>",
-          "a":"Average<br>",
-          "v":"Very Effective<br>",
-          "x":"Not Observed"
+          "0":"Not Observed<br>",
+          "1":"Not Effective<br>",
+          "2":"Average<br>",
+          "3":"Very Effective"
         },
-        "defaultValue":"x"
+        "defaultValue":"0"
       },
-      "Defense Comment": {
-        "code":"defenseComment",
-        "title": "Defense Comment",
-        "type":"text",
-        "size":15,
-        "maxSize":50
+      "Was Defended": {
+        "code":"defended",
+        "title": "Was Defended",
+        "type":"bool"
       },
       "Died/Tipped": {
         "code":"died",
         "title": "Died/Tipped",
+        "type":"bool"
+      },
+      "No Show": {
+        "code":"noShow",
+        "title": "No Show",
         "type":"bool"
       },
       "Make good alliance partner?": {
